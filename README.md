@@ -1,4 +1,4 @@
-# ProjectIS.github.io
+# ProjectIS
 Project 1: Audit Trail Viewer (ATV)
 Overview
 The Audit Trail Viewer (ATV) is a user-friendly web application designed to display and analyze audit trail data for entities in Manhattan Active Omni (MAO). 
