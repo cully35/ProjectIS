@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DataTable Example</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"
+    ></script>
+    <style>
+  #example {
+    width: 100%;
+    max-width: 100%; /* To prevent table from overflowing its container */
+  }
+
+  .table-responsive {
+    overflow-x: auto; /* Enable horizontal scrolling if the table is wider than the container */
+  }
+</style>
+  </head>
+<body class="bg-light">
+    <main>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient"
+        id="topNavBar"
+      >
+        <div class="container">
+          <a class="navbar-brand" href=""> Audit Trailing </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./"
+                  ><i class="fa fa-home"></i> Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href=""
+                  ><i class="fa fa-th-list"></i> Audit Logs</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div>
+              <ul class="navbar-nav">
+                <li>
+                  <a class="nav-link" href="./login.html"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container py-5">
+        <div class="d-flex w-100">
+          <h3 class="col-auto flex-grow-1"><b>Audit Trail</b></h3>
+        </div>
+        <hr />
+        <div class="card">
+          <div class="card-body">
+  <body>  
+    <div class="table-responsive">
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>TypeOfChange</th>
+          <th>UserId</th>
+          <th>CreatedBy</th>
+          <th>UpdatedBy</th>
+          <th>PrimaryOrgId</th>
+          <th>ContextId</th>
+          <th>CreatedTimestamp</th>
+          <th>UpdatedTimestamp</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- JSON data will be inserted here -->
+      </tbody>
+    </table>
+</div>
+    <!-- Bootstrap Modal for Additional Information -->
+    <div
+      class="modal fade"
+      id="additionalInfoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- Moved the tabs here -->
+            <ul class="nav nav-tabs" id="infoTabs" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="tab1-tab"
+                  data-toggle="tab"
+                  href="#tab1"
+                  role="tab"
+                  aria-controls="tab1"
+                  aria-selected="true"
+                  >Headers</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="tab2-tab"
+                  data-toggle="tab"
+                  href="#tab2"
+                  role="tab"
+                  aria-controls="tab2"
+                  aria-selected="false"
+                  >Audit Meta Data</a
+                >
+              </li>
+              <!-- Add more tabs as needed -->
+            </ul>
+            <h5 class="modal-title ml-2" id="exampleModalLabel">
+              Additional Information
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Tab panes -->
+            <div class="tab-content" id="infoTabContent">
+              <!-- Tab 1 content -->
+              <div
+                class="tab-pane fade show active"
+                id="tab1"
+                role="tabpanel"
+                aria-labelledby="tab1-tab"
+              >
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Additional information for Tab 1 will be inserted here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Tab 2 content -->
+              <div
+                class="tab-pane fade"
+                id="tab2"
+                role="tabpanel"
+                aria-labelledby="tab2-tab"
+              >
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Additional information for Tab 2 will be inserted here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- Add more tab content as needed -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+      $(document).ready(function () {
+        // Fetch JSON data from the provided URL
+        fetch("https://run.mocky.io/v3/0d105fe2-0e98-47a6-af35-161b5972035f")
+          .then((response) => response.json())
+          .then((data) => {
+            // Access the "data" array within the JSON
+            const jsonData = data.data;
+
+            // Create rows from JSON data
+            const tableBody = document.getElementById("table-body");
+            jsonData.forEach((item, index) => {
+              tableBody.innerHTML += `
+                        <tr data-toggle="modal" data-target="#additionalInfoModal" data-index="${index}">
+                            <td>${item.TypeOfChange || ""}</td>
+                            <td>${item.EntityPayload?.UserId || ""}</td>
+                            <td>${item.EntityPayload?.CreatedBy || ""}</td>
+                            <td>${item.EntityPayload?.UpdatedBy || ""}</td>
+                            <td>${item.EntityPayload?.PrimaryOrgId || ""}</td>
+                            <td>${item.EntityPayload?.ContextId || ""}</td>
+                            <td>${
+                              item.EntityPayload?.CreatedTimestamp || ""
+                            }</td>
+                            <td>${
+                              item.EntityPayload?.UpdatedTimestamp || ""
+                            }</td>
+                        `;
+            });
+
+            // Initialize DataTable with Buttons
+            $("#example").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              buttons: ["csv", "excel", "pdf", "print"],
+              responsive: true,
+              dom: "Bfrtip",
+              // Add more options as needed
+            });
+
+            // Handle the click event to populate the modal with additional information
+            $("#example tbody").on("click", "tr", function () {
+              const index = $(this).data("index");
+              const additionalInfo = jsonData[index].AdditionalInfo || {};
+              const auditMetaData = jsonData[index].AuditMetaData || {};
+              const modalBody = document.querySelector(".modal-body");
+
+              // Access the "headers" object from JSON data
+              const headers = jsonData[index].headers;
+
+              // Create another table for additional information
+              modalBody.innerHTML = `
+        <!-- Tab panes -->
+        <div class="tab-content" id="infoTabContent">
+            <!-- Tab 1 content -->
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                <div class="table-responsive">
+                    <table id="additionalTable1" class="table">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Object.entries(headers)
+                              .map(
+                                ([key, value]) => `
+                                <tr>
+                                    <td>${key}</td>
+                                    <td>${value}</td>
+                                </tr>
+                            `
+                              )
+                              .join("")}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Tab 2 content -->
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                <div class="table-responsive">
+                    <table id="additionalTable2" class="table">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>EntityType</td>
+                                    <td>${auditMetaData.EntityType || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceComponentCode</td>
+                                    <td>${
+                                      auditMetaData.SourceComponentCode || ""
+                                    }</td>
+                                </tr>
+                                <tr>
+                                    <td>Organization</td>
+                                    <td>${auditMetaData.Organization || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td>${auditMetaData.User || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>EntityName</td>
+                                    <td>${auditMetaData.EntityName || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceComponent</td>
+                                    <td>${
+                                      auditMetaData.SourceComponent || ""
+                                    }</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceType</td>
+                                    <td>${auditMetaData.SourceType || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>Source</td>
+                                    <td>${auditMetaData.Source || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>AuditIndexSuffix</td>
+                                    <td>${
+                                      auditMetaData.AuditIndexSuffix || ""
+                                    }</td>
+                                </tr>
+                            <!-- Add more rows for other properties -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Add more tab content as needed -->
+        </div>
+    `;
+
+    $("#additionalTable1").DataTable({
+              paging: false,
+              searching: false,
+              ordering: false,
+              buttons: ["csv", "excel", "pdf", "print"],
+              responsive: true,
+              dom: "Bfrtip",
+              // Add more options as needed
+            });
+            $("#additionalTable2").DataTable({
+              paging: false,
+              searching: false,
+              ordering: false,
+              buttons: ["csv", "excel", "pdf", "print"],
+              responsive: true,
+              dom: "Bfrtip",
+              // Add more options as needed
+            });
+              // Refresh the tab content after updating it
+              $('#infoTabs a[data-toggle="tab"]').on(
+                "shown.bs.tab",
+                function (e) {
+                  $("#infoTabContent .tab-pane.active").html("Loading...");
+
+                  const tabId = $(e.target).attr("href").replace("#", "");
+                  const tabContent = document.querySelector(
+                    `#${tabId} .table tbody`
+                  );
+
+                  if (tabId === "tab1") {
+                    // Populate Tab 1 content here if needed
+                  } else if (tabId === "tab2") {
+                    // Access the "AuditMetaData" object from JSON data for Tab 2
+                    const auditMetaData = jsonData[index].AuditMetaData || {};
+
+                    // Populate Tab 2 content with AuditMetaData
+                    tabContent.innerHTML = `
+                                <tr>
+                                    <td>EntityType</td>
+                                    <td>${auditMetaData.EntityType || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceComponentCode</td>
+                                    <td>${
+                                      auditMetaData.SourceComponentCode || ""
+                                    }</td>
+                                </tr>
+                                <tr>
+                                    <td>Organization</td>
+                                    <td>${auditMetaData.Organization || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td>${auditMetaData.User || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>EntityName</td>
+                                    <td>${auditMetaData.EntityName || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceComponent</td>
+                                    <td>${
+                                      auditMetaData.SourceComponent || ""
+                                    }</td>
+                                </tr>
+                                <tr>
+                                    <td>SourceType</td>
+                                    <td>${auditMetaData.SourceType || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>Source</td>
+                                    <td>${auditMetaData.Source || ""}</td>
+                                </tr>
+                                <tr>
+                                    <td>AuditIndexSuffix</td>
+                                    <td>${
+                                      auditMetaData.AuditIndexSuffix || ""
+                                    }</td>
+                                </tr>
+                                <!-- Add more rows for other properties -->
+                            `;
+                  }
+                }
+              );
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching JSON data:", error);
+          });
+      });
+    </script>
+    </main>
+  </body>
+</html>
