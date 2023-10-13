@@ -129,12 +129,11 @@
     <table id="example" class="display">
       <thead>
         <tr>
-          <th>TypeOfChange</th>
+          <th>Change</th>
           <th>UserId</th>
           <th>CreatedBy</th>
           <th>UpdatedBy</th>
           <th>PrimaryOrgId</th>
-          <th>ContextId</th>
           <th>CreatedTimestamp</th>
           <th>UpdatedTimestamp</th>
         </tr>
@@ -276,7 +275,6 @@
                             <td>${item.EntityPayload?.CreatedBy || ""}</td>
                             <td>${item.EntityPayload?.UpdatedBy || ""}</td>
                             <td>${item.EntityPayload?.PrimaryOrgId || ""}</td>
-                            <td>${item.EntityPayload?.ContextId || ""}</td>
                             <td>${
                               item.EntityPayload?.CreatedTimestamp || ""
                             }</td>
