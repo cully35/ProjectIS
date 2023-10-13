@@ -105,19 +105,10 @@
             </ul>
           </div>
           <div>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle bg-transparent text-light border-0"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Hello
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div>
+              <ul class="navbar-nav">
                 <li>
-                  <a class="dropdown-item" href="./login.html"
+                  <a class="nav-link" href="./login.html"
                     >Logout</a
                   >
                 </li>
@@ -265,6 +256,13 @@
         </div>
       </div>
     </div>
+
+<script>
+  $(document).ready(function () {
+    // Initialize the Bootstrap dropdown
+    $('.dropdown-toggle').dropdown();
+  });
+</script>
 
     <script>
       $(document).ready(function () {
