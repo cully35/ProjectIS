@@ -258,13 +258,6 @@
     </div>
 
 <script>
-  $(document).ready(function () {
-    // Initialize the Bootstrap dropdown
-    $('.dropdown-toggle').dropdown();
-  });
-</script>
-
-    <script>
       $(document).ready(function () {
         // Fetch JSON data from the provided URL
         fetch("https://run.mocky.io/v3/0d105fe2-0e98-47a6-af35-161b5972035f")
@@ -298,7 +291,7 @@
               paging: true,
               searching: true,
               ordering: true,
-              buttons: ["csv", "excel", "pdf", "print"],
+              buttons: ["copy", "csv", "excel", "pdf", "print"],
               responsive: true,
               dom: "Bfrtip",
               // Add more options as needed
@@ -321,7 +314,7 @@
             <!-- Tab 1 content -->
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="additionalTable1" class="table">
                         <thead>
                             <tr>
                                 <th>Key</th>
@@ -346,7 +339,7 @@
             <!-- Tab 2 content -->
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="additionalTable2" class="table">
                         <thead>
                             <tr>
                                 <th>Key</th>
@@ -405,6 +398,24 @@
         </div>
     `;
 
+    $("#additionalTable1").DataTable({
+              paging: false,
+              searching: false,
+              ordering: false,
+              buttons: ["csv", "excel", "pdf", "print"],
+              responsive: true,
+              dom: "Bfrtip",
+              // Add more options as needed
+            });
+            $("#additionalTable2").DataTable({
+              paging: false,
+              searching: false,
+              ordering: false,
+              buttons: ["csv", "excel", "pdf", "print"],
+              responsive: true,
+              dom: "Bfrtip",
+              // Add more options as needed
+            });
               // Refresh the tab content after updating it
               $('#infoTabs a[data-toggle="tab"]').on(
                 "shown.bs.tab",
