@@ -1,6 +1,11 @@
-$(".input_text").focus(function(){
-    $(this).prev('.fa').addclass('glowIcon')
-})
-$(".input_text").focusout(function(){
-    $(this).prev('.fa').removeclass('glowIcon')
-})
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
