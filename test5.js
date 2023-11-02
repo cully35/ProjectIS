@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const mphaCount = countUserIds(data, "mpha");
       const jchoCount = countUserIds(data, "jcho");
       const ahilCount = countUserIds(data, "ahil");
-      const cphaCount = countUserIds(data, "cpha");
+      const chpaCount = countUserIds(data, "chpa");
 
       // Display the counts on the HTML page
       document.getElementById(
         "result"
-      ).textContent = `Count of "UserId: rdel": ${rdelCount}, Count of "UserId: ajai": ${ajaiCount}, Count of "UserId: jpet": ${jpetCount}, Count of "UserId: emal": ${emalCount}, Count of "UserId: mpha": ${mphaCount}, Count of "UserId: jcho": ${jchoCount}, Count of "UserId: ahil": ${ahilCount}, Count of "UserId: cpha": ${cphaCount}`;
+      ).textContent = `rdel: ${rdelCount}, ajai: ${ajaiCount}, jpet: ${jpetCount}, emal: ${emalCount}, mpha: ${mphaCount}, jcho: ${jchoCount}, ahil: ${ahilCount}, chpa: ${chpaCount}`;
 
       // Create a pie chart with all counts
       createPieChart(
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mphaCount,
         jchoCount,
         ahilCount,
-        cphaCount
+        chpaCount
       );
 
       // Create a bar chart with all counts
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mphaCount,
         jchoCount,
         ahilCount,
-        cphaCount
+        chpaCount
       );
     })
     .catch((error) => {
@@ -86,7 +86,7 @@ function createPieChart(
   mphaCount,
   jchoCount,
   ahilCount,
-  cphaCount
+  chpaCount
 ) {
   const ctx = document.getElementById("myPieChart").getContext("2d");
 
@@ -100,7 +100,7 @@ function createPieChart(
       "UserId: mpha",
       "UserId: jcho",
       "UserId: ahil",
-      "UserId: cpha",
+      "UserId: chpa",
     ],
     datasets: [
       {
@@ -112,7 +112,7 @@ function createPieChart(
           mphaCount,
           jchoCount,
           ahilCount,
-          cphaCount,
+          chpaCount,
         ], // Counts of rdel, ajai, jpet, and other users
         backgroundColor: [
           "#FF5733",
@@ -144,7 +144,7 @@ function createBarChart(
   mphaCount,
   jchoCount,
   ahilCount,
-  cphaCount
+  chpaCount
 ) {
   const ctx = document.getElementById("myBarChart").getContext("2d");
 
@@ -158,7 +158,7 @@ function createBarChart(
       "UserId: mpha",
       "UserId: jcho",
       "UserId: ahil",
-      "UserId: cpha",
+      "UserId: chpa",
     ],
     datasets: [
       {
@@ -171,7 +171,7 @@ function createBarChart(
           mphaCount,
           jchoCount,
           ahilCount,
-          cphaCount,
+          chpaCount,
         ],
         backgroundColor: [
           "#FF5733",
