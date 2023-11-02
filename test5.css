@@ -4,11 +4,11 @@
 }
 
 .tablink {
-  background-color: #3498db;
+  background-color: #000000;
   color: white;
   float: left;
-  border: none;
-  outline: none;
+  border: white;
+  outline: white;
   cursor: pointer;
   padding: 10px 20px;
 }
