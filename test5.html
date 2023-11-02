@@ -4,15 +4,34 @@
     <title>Pie Chart Example</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./test5.js"></script>
+    <link rel="stylesheet" href="./test5.css" />
+    <script>
+      // Define the openTab function
+      function openTab(tabName) {
+        const tabcontents = document.getElementsByClassName("tabcontent");
+        for (const tabcontent of tabcontents) {
+          tabcontent.style.display = "none";
+        }
+        document.getElementById(tabName).style.display = "block";
+      }
+    </script>
   </head>
   <body>
     <section>
-      <h1>Count of "UserId: rdel" in JSON</h1>
+      <h1>Count of "UserId:" in JSON</h1>
       <p id="result">Loading...</p>
-      <canvas id="myPieChart" width="400" height="400"></canvas>
-    </section>
-    <section>
-      <canvas id="myBarChart" width="400" height="200"></canvas>
+      <div class="tabs">
+        <button class="tablink" onclick="openTab('PieChart')">Pie Chart</button>
+        <button class="tablink" onclick="openTab('BarChart')">Bar Graph</button>
+      </div>
+
+      <div id="PieChart" class="tabcontent">
+        <canvas id="myPieChart"></canvas>
+      </div>
+
+      <div id="BarChart" class="tabcontent">
+        <canvas id="myBarChart"></canvas>
+      </div>
     </section>
   </body>
 </html>

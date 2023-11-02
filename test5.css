@@ -1,0 +1,30 @@
+/* Style the tabs */
+.tabs {
+  overflow: hidden;
+}
+
+.tablink {
+  background-color: #3498db;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.tablink:hover {
+  background-color: #ff5733;
+}
+
+/* Hide chart containers by default */
+.tabcontent {
+  display: none;
+}
+
+/* Set chart container width and height */
+#myPieChart,
+#myBarChart {
+  width: 100%;
+  height: 300px;
+}

@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Initial tab to display (e.g., Pie Chart)
+  document.getElementById("PieChart").style.display = "block";
   // Fetch the JSON data from the provided URL
   fetch("https://run.mocky.io/v3/ba12d051-8f60-40c4-a9bd-6b2478d3b6ca")
     .then((response) => response.json())
